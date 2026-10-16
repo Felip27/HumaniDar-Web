@@ -1,0 +1,8 @@
+{
+  "name": "HUMANIDAR - Centro Médico Renal",
+  "description": "Sitio institucional oficial de HUMANIDAR Centro Médico Renal. Atención nefrológica especializada, tecnología médica y acompañamiento humano integral para el cuidado de la salud renal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

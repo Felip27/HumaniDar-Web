@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 120" width="920" height="240" fill="none">
+  <defs>
+    <linearGradient id="grad" x1="15" y1="50" x2="125" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0472FD"/>
+      <stop offset="50%" stop-color="#7A3DF0"/>
+      <stop offset="100%" stop-color="#FC3868"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 10)">
+    <!-- Symbol -->
+    <circle cx="46" cy="18" r="9.5" fill="#0472FD" />
+    <circle cx="94" cy="18" r="9.5" fill="#FC3868" />
+    <path d="M 46,38 C 26,38 14,50 14,66 C 14,81 27,92 45,92 C 61,92 72,81 83,70 C 95,58 107,46 122,58 C 131,65 131,77 122,86 C 111,94 97,92 86,81 C 74,69 63,58 48,46 C 39,39 28,42 22,50"
+      stroke="url(#grad)" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g transform="translate(155, 68)">
+    <text font-family="Montserrat, system-ui, -apple-system, sans-serif" font-weight="800" font-size="52" letter-spacing="-1">
+      <tspan fill="#0472FD">Humani</tspan><tspan fill="#FC3868">D</tspan><tspan fill="#000069">ar</tspan>
+    </text>
+    <text y="28" x="2" font-family="Montserrat, system-ui, -apple-system, sans-serif" font-weight="700" font-size="14" letter-spacing="4.5" fill="#000069" opacity="0.95">CENTRO MÉDICO RENAL</text>
+  </g>
+</svg>

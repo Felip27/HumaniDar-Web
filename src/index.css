@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+
+  --color-brand-blue: #0472FD;
+  --color-brand-pink: #FC3868;
+  --color-brand-purple: #7A3DF0;
+  --color-brand-navy: #000069;
+  --color-brand-navy-deep: #00004d;
+  --color-brand-navy-light: #0A1647;
+  --color-brand-bg: #F8FAFD;
+  --color-brand-gray: #F1F5F9;
+  --color-brand-muted: #64748B;
+  --color-brand-border: #E2E8F0;
+}
+
+:root {
+  --hero-navy-color: #000069;
+  --logo-navy-color: #000069;
+  --logo-sub-color: #000069;
+  --page-bg: #FFFFFF;
+  --page-text: #000069;
+  --sec-alt-bg: #F8FAFD;
+  --sec-plain-bg: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --card-subtle-bg: #F8FAFD;
+  --card-border: #E2E8F0;
+  --heading-color: #000069;
+  --text-muted: #64748B;
+}
+
+.dark {
+  --hero-navy-color: #F8FAFC;
+  --logo-navy-color: #F8FAFC;
+  --logo-sub-color: #94A3B8;
+  --page-bg: #070A14;
+  --page-text: #F8FAFC;
+  --sec-alt-bg: #0D1322;
+  --sec-plain-bg: #070A14;
+  --card-bg: #111A2E;
+  --card-subtle-bg: #141F36;
+  --card-border: #1E293B;
+  --heading-color: #F8FAFC;
+  --text-muted: #94A3B8;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--page-text);
+    background-color: var(--page-bg);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--heading-color);
+  }
+}
+
+/* Subtle organic glow and gradient utility */
+.brand-gradient {
+  background: linear-gradient(135deg, #0472FD 0%, #7A3DF0 50%, #FC3868 100%);
+}
+
+.brand-gradient-text {
+  background: linear-gradient(135deg, #0472FD 0%, #7A3DF0 50%, #FC3868 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-gradient-soft {
+  background: linear-gradient(135deg, rgba(4, 114, 253, 0.08) 0%, rgba(122, 61, 240, 0.06) 50%, rgba(252, 56, 104, 0.08) 100%);
+}
+
+.brand-border-gradient {
+  border-image: linear-gradient(135deg, #0472FD, #7A3DF0, #FC3868) 1;
+}
+
+/* Smooth custom focus ring */
+*:focus-visible {
+  outline: 2px solid #0472FD;
+  outline-offset: 2px;
+}
+
+/* Organic draw underline animation */
+@keyframes drawUnderline {
+  0% {
+    stroke-dashoffset: 220;
+    opacity: 0.2;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.animate-draw-underline {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: drawUnderline 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.5s forwards;
+}
+
