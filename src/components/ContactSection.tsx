@@ -156,7 +156,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ config }) => {
                 Teléfono
               </h4>
               <p className="mt-1 text-sm font-bold text-[#000069] dark:text-slate-100">
-                {config.phone}
+                <a
+                  href={`tel:${config.phone}`}
+                  className="hover:text-[#0472FD] transition-colors"
+                >
+                  {config.phone}
+                </a>
               </p>
               <span className="mt-1 text-[11px] text-[#64748B] dark:text-slate-400 block">
                 Atención en días hábiles

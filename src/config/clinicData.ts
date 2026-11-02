@@ -58,10 +58,9 @@ export interface ClinicConfig {
 export const INITIAL_CLINIC_CONFIG: ClinicConfig = {
   clinicName: "HUMANIDAR",
   tagline: "CENTRO MÉDICO RENAL",
-  // Centralized WhatsApp configuration as requested (NO inventar número: configurable placeholder)
-  whatsappNumber: "549XXXXXXXXXX",
+  whatsappNumber: "3834337576",
   defaultWhatsappMessage: "Hola, quisiera realizar una consulta sobre los servicios de HUMANIDAR.",
-  phone: "+54 (XX) XXXX-XXXX",
+  phone: "3834337576",
   email: "contacto@humanidar.com",
   address: "Pedro Lobo S/N, K4707XXX San Isidro, Catamarca",
   addressDetail: "San Isidro, Valle Viejo, Provincia de Catamarca",
@@ -70,8 +69,8 @@ export const INITIAL_CLINIC_CONFIG: ClinicConfig = {
   // Real Google Maps Embed and Directions URLs for Pedro Lobo S/N, San Isidro, Catamarca
   googleMapsEmbedUrl: "https://maps.google.com/maps?q=Pedro+Lobo+S/N,+San+Isidro,+Catamarca&t=&z=16&ie=UTF8&iwloc=&output=embed",
   googleMapsDirectionsUrl: "https://www.google.com/maps/search/?api=1&query=Pedro+Lobo+S%2FN%2C+San+Isidro%2C+Catamarca",
-  instagramUrl: "https://instagram.com/humanidar",
-  facebookUrl: "https://facebook.com/humanidar",
+  instagramUrl: "https://www.instagram.com/humanidarcentro/",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61594228140910&ref=PROFILE_EDIT_xav_ig_profile_page_web#",
 };
 
 export const CLINIC_SERVICES: ServiceItem[] = [
@@ -252,12 +251,22 @@ export function buildWhatsAppUrl(
   message: string = "Hola, quisiera realizar una consulta sobre los servicios de HUMANIDAR."
 ): string {
   // Clean phone number (leave digits only)
-  const cleanNumber = phoneNumber.replace(/[^0-9]/g, "");
+  let cleanNumber = phoneNumber.replace(/[^0-9]/g, "");
   const encodedText = encodeURIComponent(message);
   
   if (!cleanNumber || cleanNumber.includes("X")) {
-    // If placeholder, provide wa.me link with fallback alert or clean query
     return `https://wa.me/?text=${encodedText}`;
   }
+
+  // Prepend Argentina international prefix (549) if given without country code
+  if (cleanNumber.startsWith("0")) {
+    cleanNumber = cleanNumber.substring(1);
+  }
+  if (!cleanNumber.startsWith("54")) {
+    cleanNumber = `549${cleanNumber}`;
+  } else if (cleanNumber.startsWith("54") && !cleanNumber.startsWith("549") && cleanNumber.length === 12) {
+    cleanNumber = `549${cleanNumber.substring(2)}`;
+  }
+
   return `https://wa.me/${cleanNumber}?text=${encodedText}`;
 }

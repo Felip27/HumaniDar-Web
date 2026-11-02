@@ -5,10 +5,9 @@ import { MessageCircle, Phone, Mail, MapPin, Clock, ExternalLink, Instagram, Fac
 
 interface FooterProps {
   config: ClinicConfig;
-  onOpenConfig: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ config, onOpenConfig }) => {
+export const Footer: React.FC<FooterProps> = ({ config }) => {
   const whatsappUrl = buildWhatsAppUrl(
     config.whatsappNumber,
     config.defaultWhatsappMessage
@@ -20,7 +19,8 @@ export const Footer: React.FC<FooterProps> = ({ config, onOpenConfig }) => {
 
   const navLinks = [
     { label: 'Inicio', href: '#inicio' },
-    { label: 'Nosotros', href: '#nosotros' },
+    { label: 'Diálisis en Tránsito', href: '#transito' },
+    { label: 'Videoconsultas', href: '#videoconsultas' },
     { label: 'Servicios', href: '#servicios' },
     { label: 'Especialidades', href: '#especialidades' },
     { label: 'Profesionales', href: '#profesionales' },
@@ -139,7 +139,12 @@ export const Footer: React.FC<FooterProps> = ({ config, onOpenConfig }) => {
                 <Phone className="w-4 h-4 text-[#0472FD] shrink-0 mt-0.5" />
                 <div>
                   <span className="text-xs text-slate-400 block font-medium">Teléfono:</span>
-                  <span className="text-slate-200">{config.phone}</span>
+                  <a
+                    href={`tel:${config.phone}`}
+                    className="text-slate-200 hover:text-white transition-colors"
+                  >
+                    {config.phone}
+                  </a>
                 </div>
               </div>
 
@@ -195,13 +200,6 @@ export const Footer: React.FC<FooterProps> = ({ config, onOpenConfig }) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <button
-              onClick={onOpenConfig}
-              className="text-xs text-slate-400 hover:text-white transition-colors underline"
-            >
-              Configurar datos de contacto
-            </button>
-
             <button
               onClick={scrollToTop}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all text-xs"

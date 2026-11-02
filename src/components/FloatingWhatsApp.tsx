@@ -14,9 +14,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ config }) =>
   useEffect(() => {
     const handleScroll = () => {
       // Hide on Hero, show when user scrolls past Hero into next section
-      const nosotrosSection = document.getElementById('nosotros');
-      if (nosotrosSection) {
-        const rect = nosotrosSection.getBoundingClientRect();
+      const nextSection = document.getElementById('transito') || document.getElementById('nosotros');
+      if (nextSection) {
+        const rect = nextSection.getBoundingClientRect();
         setIsVisible(rect.top <= window.innerHeight * 0.75);
       } else {
         setIsVisible(window.scrollY > 350);

@@ -55,7 +55,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ config }) => {
             </a>
 
             <a
-              href="#mapa"
+              href="#ubicacion"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 active:scale-[0.98] text-[#000069] dark:text-slate-100 text-base font-bold border-2 border-[#0472FD]/60 dark:border-slate-600 hover:border-[#0472FD] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#0472FD]"
             >
               <MapPin className="w-4 h-4 text-[#FC3868]" />

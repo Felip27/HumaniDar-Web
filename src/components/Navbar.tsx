@@ -2,25 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { buildWhatsAppUrl, ClinicConfig } from '../config/clinicData';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { ThemeToggle } from './ThemeToggle';
-import { Menu, X, Settings2, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
   config: ClinicConfig;
-  onOpenConfig: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ config, onOpenConfig }) => {
+export const Navbar: React.FC<NavbarProps> = ({ config }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show navbar only after user passes into the next section (Nosotros)
-      const nosotrosSection = document.getElementById('nosotros');
-      if (nosotrosSection) {
-        const rect = nosotrosSection.getBoundingClientRect();
-        // Visible when nosotros enters viewport
+      // Show navbar only after user passes into the next section (Diálisis en Tránsito)
+      const nextSection = document.getElementById('transito') || document.getElementById('nosotros');
+      if (nextSection) {
+        const rect = nextSection.getBoundingClientRect();
+        // Visible when section enters viewport
         setIsVisible(rect.top <= 120);
       } else {
         setIsVisible(window.scrollY > 380);
@@ -58,7 +57,8 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenConfig }) => {
 
   const navLinks = [
     { label: 'Inicio', href: '#inicio', desc: 'Volver a la portada' },
-    { label: 'Nosotros', href: '#nosotros', desc: 'Nuestra visión y valores' },
+    { label: 'Diálisis en Tránsito', href: '#transito', desc: 'Atención a pacientes de todo el país' },
+    { label: 'Videoconsultas', href: '#videoconsultas', desc: 'Consultas médicas online' },
     { label: 'Servicios', href: '#servicios', desc: 'Tratamientos y hemodiálisis' },
     { label: 'Especialidades', href: '#especialidades', desc: 'Áreas de atención médica' },
     { label: 'Profesionales', href: '#profesionales', desc: 'Cuerpo médico especializado' },
@@ -82,18 +82,28 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenConfig }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           
-          {/* Logo PNG de HumaniDar */}
+          {/* Official HumaniDar Logo using user's new symbol & Poppins font */}
           <a
             href="#inicio"
-            className="group flex items-center focus-visible:ring-2 focus-visible:ring-[#0472FD] rounded-lg transition-transform hover:opacity-90"
+            className="group flex items-center gap-2.5 sm:gap-3 focus-visible:ring-2 focus-visible:ring-[#0472FD] rounded-lg transition-transform hover:opacity-90"
             aria-label="HUMANIDAR Centro Médico Renal - Volver al inicio"
           >
             <img
-              src="/logohumanidar.png"
+              src="/logo_humanidar_symbol.png"
               alt="HumaniDar Centro Médico Renal"
-              className="h-8 sm:h-9 w-auto object-contain drop-shadow-xs"
+              className="h-8 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
               loading="eager"
             />
+            <div className="flex flex-col text-left leading-none">
+              <span className="font-['Poppins',sans-serif] font-bold tracking-tight text-base sm:text-lg">
+                <span className="text-[#0472FD]">Humani</span>
+                <span className="text-[#FC3868]">D</span>
+                <span className="text-[#000069] dark:text-white">ar</span>
+              </span>
+              <span className="text-[7.5px] sm:text-[8.5px] font-bold tracking-[0.24em] text-[#000069]/75 dark:text-slate-300 uppercase mt-0.5">
+                CENTRO MÉDICO RENAL
+              </span>
+            </div>
           </a>
 
           {/* Menú Dropdown y Acciones */}
@@ -170,16 +180,6 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenConfig }) => {
 
             {/* Alternador de Modo Claro / Oscuro */}
             <ThemeToggle />
-
-            {/* Acceso a Configuración de Contacto */}
-            <button
-              onClick={onOpenConfig}
-              className="p-1.5 text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              title="Configuración de datos de contacto"
-              aria-label="Configuración de datos de contacto"
-            >
-              <Settings2 className="w-4 h-4" />
-            </button>
           </div>
 
         </div>

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { INITIAL_CLINIC_CONFIG, ClinicConfig } from './config/clinicData';
+import React, { useEffect } from 'react';
+import { INITIAL_CLINIC_CONFIG } from './config/clinicData';
 import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { AboutSection } from './components/AboutSection';
+import { TransitDialysisSection } from './components/TransitDialysisSection';
+import { OsepSection } from './components/OsepSection';
+import { VideoConsultasSection } from './components/VideoConsultasSection';
 import { ServicesSection } from './components/ServicesSection';
 import { SpecialtiesSection } from './components/SpecialtiesSection';
 import { TeamSection } from './components/TeamSection';
@@ -13,7 +15,6 @@ import { ContactSection } from './components/ContactSection';
 import { MapSection } from './components/MapSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { ConfigModal } from './components/ConfigModal';
 import {
   HeroToAboutConnector,
   AboutToServicesConnector,
@@ -22,43 +23,38 @@ import {
 } from './components/SectionConnectors';
 
 export default function App() {
-  const [config, setConfig] = useState<ClinicConfig>(() => {
-    try {
-      const stored = localStorage.getItem('humanidar_clinic_config');
-      if (stored) {
-        return { ...INITIAL_CLINIC_CONFIG, ...JSON.parse(stored) };
-      }
-    } catch {
-      // Fallback to initial
-    }
-    return INITIAL_CLINIC_CONFIG;
-  });
+  const config = INITIAL_CLINIC_CONFIG;
 
-  const [isConfigOpen, setIsConfigOpen] = useState(false);
-
-  const handleSaveConfig = (newConfig: ClinicConfig) => {
-    setConfig(newConfig);
+  // Clean up any stale localStorage from previous config modal
+  useEffect(() => {
     try {
-      localStorage.setItem('humanidar_clinic_config', JSON.stringify(newConfig));
+      localStorage.removeItem('humanidar_clinic_config');
     } catch {
-      // Handle storage quota or private mode safely
+      // Safe fallback
     }
-  };
+  }, []);
 
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col bg-white dark:bg-[#070A14] text-[#000069] dark:text-slate-100 selection:bg-[#0472FD]/15 selection:text-[#0472FD] relative transition-colors duration-200">
         {/* Sticky Header / Navbar */}
-        <Navbar config={config} onOpenConfig={() => setIsConfigOpen(true)} />
+        <Navbar config={config} />
 
         {/* Continuous Narrative Flow of Sections */}
         <main className="flex-1">
           {/* CHAPTER 1: PERSONA & IDENTIDAD */}
           <Hero config={config} />
           
-          {/* Seamless organic ribbon bridge from Hero into Nosotros */}
+          {/* Seamless organic ribbon bridge from Hero into Transit Dialysis */}
           <HeroToAboutConnector />
-          <AboutSection />
+
+          <TransitDialysisSection config={config} />
+
+          {/* Cobertura Médica OSEP */}
+          <OsepSection config={config} />
+
+          {/* Telemedicina & Videoconsultas */}
+          <VideoConsultasSection config={config} />
           
           {/* Organic wave transition into Servicios */}
           <AboutToServicesConnector />
@@ -89,18 +85,10 @@ export default function App() {
         </main>
 
         {/* Institutional Dark Footer */}
-        <Footer config={config} onOpenConfig={() => setIsConfigOpen(true)} />
+        <Footer config={config} />
 
         {/* Persistent Floating WhatsApp Action */}
         <FloatingWhatsApp config={config} />
-
-        {/* Client Configuration Utility Modal */}
-        <ConfigModal
-          isOpen={isConfigOpen}
-          onClose={() => setIsConfigOpen(false)}
-          config={config}
-          onSave={handleSaveConfig}
-        />
       </div>
     </ThemeProvider>
   );
